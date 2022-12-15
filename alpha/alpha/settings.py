@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "graphene_django",
+    "accounts",
+    "health"
 ]
 
 MIDDLEWARE = [
@@ -100,6 +102,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+GRAPHENE = {
+    "RELAY_CONNECTION_ENFORCE_FIRST_OR_LAST": True,
+    "RELAY_CONNECTION_MAX_LIMIT": 100,
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -122,3 +137,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+AUTH_USER_MODEL = 'accounts.User'
